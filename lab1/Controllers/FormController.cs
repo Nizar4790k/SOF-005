@@ -18,6 +18,17 @@ namespace lab1.Controllers
 
         public ActionResult Result(Person person)
         {
+
+            ViewBag.FirstName = person.FirstName;
+            ViewBag.LastName = person.LastName;
+            ViewData["DNI"] = person.Dni;
+            ViewData["Email"] = person.Email;
+            
+
+
+
+
+
             return View(person);
         }
     }

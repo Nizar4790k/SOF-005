@@ -1,7 +1,18 @@
-﻿
+﻿@model lab1.Models.Person
+
 @{
     ViewBag.Title = "Result";
 }
 
-<h2>Result</h2>
+<h2>@ViewBag.FirstName</h2>
+<br />
+<h2>@ViewBag.LastName</h2>
+<br />
+<h2>@Model.Age</h2>
+<br />
+<h2> @ViewData["DNI"]</h2>
+<br />
+<h2> @ViewData["Email"]</h2>
+<br />
+<h2>@Model.Phone</h2>
 
