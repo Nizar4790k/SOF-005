@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+}
+
+<h2>Form</h2>
+
+@using (Html.BeginForm("Result", "Form", FormMethod.Post))
+{
+
+    <div>
+        @Html.Label("Nombre")
+        @Html.TextBox("name", null, new { @class = "form-control", placeholder = "Inserte su nombre" })
+
+    </div>
+
+    <div>
+        @Html.Label("Cedula")
+        @Html.TextBox("id", null, new { @class = "form-control", placeholder = "Inserte su cedula" })
+
+    </div>
+
+    <div>
+        @Html.Label("Edad")
+        @Html.TextBox("edad", null, new { @class = "form-control", placeholder = "Inserte su edad" })
+
+    </div>
+
+
+    <div>
+        @Html.Label("Destino")
+        @Html.DropDownList("destino", new SelectList(new[] { "PLAYA", "MONTANA", "USA", "EUROPA" }), "Seleccione un destino")
+    </div>
+
+    <input value="enviar" type="submit"  />
+
+
+}
+
