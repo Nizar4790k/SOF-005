@@ -1,0 +1,65 @@
+﻿
+
+@model Tarea3.Models.Persona
+@using Tarea3.Models
+
+<h2>Form</h2>
+
+
+@using (@Html.BeginForm("Result", "Form", FormMethod.Post))
+{
+
+
+    <div>
+        @Html.Label("Nombre")
+        @Html.TextBoxFor(a => a.Nombre)
+    </div>
+
+    <div>
+        @Html.Label("Apellido")
+        @Html.TextBoxFor(a => a.Apellido)
+    </div>
+
+    <div>
+        @Html.Label("Cedula")
+        @Html.TextBoxFor(a => a.Cedula)
+
+    </div>
+
+    <div>
+        @Html.Label("Edad")
+        @Html.TextBoxFor(a => a.Edad)
+
+    </div>
+
+    <div>
+        @Html.Label("Telefono")
+        @Html.TextBoxFor(a => a.Telefono)
+
+    </div>
+
+    <div>
+        @Html.Label("Sexo")
+        @Html.DropDownListFor(a => a.Sexo, new SelectList(Enum.GetValues(typeof(Sexo))), "Seleccione el sexo")
+    </div>
+
+    <h1>Hobbies</h1>
+
+    @Html.LabelFor(a => a.Musica)
+    @Html.CheckBoxFor(a => a.Musica)
+
+    @Html.LabelFor(a => a.VideoJuegos)
+    @Html.CheckBoxFor(a => a.VideoJuegos)
+
+    @Html.LabelFor(a => a.Anime)
+    @Html.CheckBoxFor(a => a.Anime)
+
+
+
+
+
+    <input value="enviar" type="submit" />
+
+
+}
+
