@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+
 
 namespace Tarea3.Models
 {
     public class Persona
     {
-
+        
+        [Required(ErrorMessage ="El nombre es obligatorio")]
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Cedula { get; set; }
 
+        [Required(ErrorMessage = "El Apellido es obligatorio")]
+        public string Apellido { get; set; }
+
+
+  
+  
         public int Edad { get; set; }
 
         public string Telefono { get; set; }
@@ -27,6 +34,8 @@ namespace Tarea3.Models
         public bool Anime { get; set; }
 
         public Sexo Sexo { get; set; }
+
+        public string Foto { get; set; }
 
         
 

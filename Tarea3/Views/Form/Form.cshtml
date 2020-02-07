@@ -9,25 +9,23 @@
 <h2>Form</h2>
 
 
-@using (@Html.BeginForm("Result", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (@Html.BeginForm("Result", "Form", FormMethod.Post))
 {
 
 
     <div>
         @Html.Label("Nombre")
         @Html.TextBoxFor(a => a.Nombre)
+        @Html.ValidationMessageFor(a=>a.Nombre,"",new { @class = "text-danger" })
     </div>
 
     <div>
         @Html.Label("Apellido")
         @Html.TextBoxFor(a => a.Apellido)
+        @Html.ValidationMessageFor(a => a.Apellido, "", new { @class = "text-danger" })
     </div>
 
-    <div>
-        @Html.Label("Cedula")
-        @Html.TextBoxFor(a => a.Cedula)
 
-    </div>
 
     <div>
         @Html.Label("Edad")
@@ -81,12 +79,15 @@
         @Html.CheckBoxFor(a => a.Musica)<br>
 
         @Html.Label("videojuegos")
-        @Html.CheckBoxFor(a=>a.VideoJuegos)<br>
+        @Html.CheckBoxFor(a => a.VideoJuegos)<br>
 
         @Html.Label("anime")
-        @Html.CheckBoxFor(a=>a.Anime)<br>
+        @Html.CheckBoxFor(a => a.Anime)<br>
 
     </div>
+
+
+    
 
 
 
