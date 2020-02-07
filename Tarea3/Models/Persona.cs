@@ -9,7 +9,7 @@ namespace Tarea3.Models
     {
 
         public string Nombre { get; set; }
-            public string Apellido { get; set; }
+        public string Apellido { get; set; }
         public string Cedula { get; set; }
 
         public int Edad { get; set; }
@@ -18,13 +18,9 @@ namespace Tarea3.Models
 
         public string Email { get; set; }
 
-       public bool Casado { get; set; }
-       public bool Soltero { get; set; }
+        public string EstadoCivil { get; set; }
 
-       public bool UnionLibre { get; set; }
-       public bool Viudo { get; set; }
-
-       public bool Musica { get; set; }
+         public bool Musica { get; set; }
 
         public bool VideoJuegos { get; set; }
 

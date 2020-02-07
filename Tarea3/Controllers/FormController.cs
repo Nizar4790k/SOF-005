@@ -17,6 +17,11 @@ namespace Tarea3.Controllers
         
         public ActionResult Result(Persona persona)
         {
+
+        
+         
+
+
             return View(persona);
         }
     

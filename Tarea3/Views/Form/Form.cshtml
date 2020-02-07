@@ -1,12 +1,15 @@
 ﻿
 
 @model Tarea3.Models.Persona
+
+
+
 @using Tarea3.Models
 
 <h2>Form</h2>
 
 
-@using (@Html.BeginForm("Result", "Form", FormMethod.Post))
+@using (@Html.BeginForm("Result", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
 
@@ -38,21 +41,59 @@
 
     </div>
 
+
     <div>
+        @Html.Label("Email")
+        @Html.TextBoxFor(a => a.Email)
+
+    </div>
+
+
+
+    <div>
+
         @Html.Label("Sexo")
-        @Html.DropDownListFor(a => a.Sexo, new SelectList(Enum.GetValues(typeof(Sexo))), "Seleccione el sexo")
+        @Html.DropDownListFor(a => a.Sexo, new SelectList(Enum.GetValues(typeof(Sexo))))
+
+    </div>
+
+
+    <h1>Estado Civil</h1>
+    <div>
+        @Html.Label("Casado")
+        @Html.RadioButtonFor(a => a.EstadoCivil, "casado")<br />
+        @Html.Label("Soltero")
+        @Html.RadioButtonFor(a => a.EstadoCivil, "soltero")<br />
+        @Html.Label("Viudo")
+        @Html.RadioButtonFor(a => a.EstadoCivil, "viudo")<br />
+        @Html.Label("Union Libre")
+        @Html.RadioButtonFor(a => a.EstadoCivil, "union libre")<br />
+        @Html.Label("divorciado")
+        @Html.RadioButtonFor(a => a.EstadoCivil, "divorciado")<br />
+
+
     </div>
 
     <h1>Hobbies</h1>
 
-    @Html.LabelFor(a => a.Musica)
-    @Html.CheckBoxFor(a => a.Musica)
+    <div>
+        @Html.Label("musica")
+        @Html.CheckBoxFor(a => a.Musica)<br>
 
-    @Html.LabelFor(a => a.VideoJuegos)
-    @Html.CheckBoxFor(a => a.VideoJuegos)
+        @Html.Label("videojuegos")
+        @Html.CheckBoxFor(a=>a.VideoJuegos)<br>
 
-    @Html.LabelFor(a => a.Anime)
-    @Html.CheckBoxFor(a => a.Anime)
+        @Html.Label("anime")
+        @Html.CheckBoxFor(a=>a.Anime)<br>
+
+    </div>
+
+
+
+
+
+
+
 
 
 
