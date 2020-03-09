@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FORMULARIOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EstadoCivil">
+    <Key>
+      <PropertyRef Name="idEstadoCivil" />
+    </Key>
+    <Property Name="idEstadoCivil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Personas" Relationship="Self.FK__Persona__fk_esta__4E88ABD4" FromRole="EstadoCivil" ToRole="Persona" />
+  </EntityType>
+  <EntityType Name="Hobby">
+    <Key>
+      <PropertyRef Name="idHobby" />
+    </Key>
+    <Property Name="idHobby" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Personas" Relationship="Self.PersonaHobbys" FromRole="Hobbys" ToRole="Persona" />
+  </EntityType>
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="idPersona" />
+    </Key>
+    <Property Name="idPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cedula" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="edad" Type="Int32" />
+    <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="fk_estadoCivil" Type="Int32" />
+    <NavigationProperty Name="EstadoCivil" Relationship="Self.FK__Persona__fk_esta__4E88ABD4" FromRole="Persona" ToRole="EstadoCivil" />
+    <NavigationProperty Name="Hobbys" Relationship="Self.PersonaHobbys" FromRole="Persona" ToRole="Hobbys" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Persona__fk_esta__4E88ABD4">
+    <End Role="EstadoCivil" Type="Self.EstadoCivil" Multiplicity="0..1" />
+    <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoCivil">
+        <PropertyRef Name="idEstadoCivil" />
+      </Principal>
+      <Dependent Role="Persona">
+        <PropertyRef Name="fk_estadoCivil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonaHobbys">
+    <End Role="Hobbys" Type="Self.Hobby" Multiplicity="*" />
+    <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="FORMULARIOEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EstadoCivils" EntityType="Self.EstadoCivil" />
+    <EntitySet Name="Hobbys" EntityType="Self.Hobby" />
+    <EntitySet Name="Personas" EntityType="Self.Persona" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK__Persona__fk_esta__4E88ABD4" Association="Self.FK__Persona__fk_esta__4E88ABD4">
+      <End Role="EstadoCivil" EntitySet="EstadoCivils" />
+      <End Role="Persona" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="PersonaHobbys" Association="Self.PersonaHobbys">
+      <End Role="Hobbys" EntitySet="Hobbys" />
+      <End Role="Persona" EntitySet="Personas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FORMULARIOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EstadoCivil">
+    <Key>
+      <PropertyRef Name="idEstadoCivil" />
+    </Key>
+    <Property Name="idEstadoCivil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Hobbys">
+    <Key>
+      <PropertyRef Name="idHobby" />
+    </Key>
+    <Property Name="idHobby" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="idPersona" />
+    </Key>
+    <Property Name="idPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cedula" Type="varchar" MaxLength="12" />
+    <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="apellido" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="edad" Type="int" />
+    <Property Name="telefono" Type="varchar" MaxLength="45" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="foto" Type="varchar(max)" />
+    <Property Name="fk_estadoCivil" Type="int" />
+  </EntityType>
+  <EntityType Name="PersonaHobbys">
+    <Key>
+      <PropertyRef Name="fk_persona" />
+      <PropertyRef Name="fk_hobby" />
+    </Key>
+    <Property Name="fk_persona" Type="int" Nullable="false" />
+    <Property Name="fk_hobby" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__Persona__fk_esta__4E88ABD4">
+    <End Role="EstadoCivil" Type="Self.EstadoCivil" Multiplicity="0..1" />
+    <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoCivil">
+        <PropertyRef Name="idEstadoCivil" />
+      </Principal>
+      <Dependent Role="Persona">
+        <PropertyRef Name="fk_estadoCivil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PersonaHo__fk_ho__534D60F1">
+    <End Role="Hobbys" Type="Self.Hobbys" Multiplicity="1" />
+    <End Role="PersonaHobbys" Type="Self.PersonaHobbys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hobbys">
+        <PropertyRef Name="idHobby" />
+      </Principal>
+      <Dependent Role="PersonaHobbys">
+        <PropertyRef Name="fk_hobby" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PersonaHo__fk_pe__52593CB8">
+    <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+    <End Role="PersonaHobbys" Type="Self.PersonaHobbys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="idPersona" />
+      </Principal>
+      <Dependent Role="PersonaHobbys">
+        <PropertyRef Name="fk_persona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FORMULARIOModelStoreContainer">
+    <EntitySet Name="EstadoCivil" EntityType="Self.EstadoCivil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hobbys" EntityType="Self.Hobbys" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonaHobbys" EntityType="Self.PersonaHobbys" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Persona__fk_esta__4E88ABD4" Association="Self.FK__Persona__fk_esta__4E88ABD4">
+      <End Role="EstadoCivil" EntitySet="EstadoCivil" />
+      <End Role="Persona" EntitySet="Persona" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PersonaHo__fk_ho__534D60F1" Association="Self.FK__PersonaHo__fk_ho__534D60F1">
+      <End Role="Hobbys" EntitySet="Hobbys" />
+      <End Role="PersonaHobbys" EntitySet="PersonaHobbys" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PersonaHo__fk_pe__52593CB8" Association="Self.FK__PersonaHo__fk_pe__52593CB8">
+      <End Role="Persona" EntitySet="Persona" />
+      <End Role="PersonaHobbys" EntitySet="PersonaHobbys" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

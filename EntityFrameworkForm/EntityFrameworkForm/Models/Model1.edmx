@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FORMULARIOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EstadoCivil">
+          <Key>
+            <PropertyRef Name="idEstadoCivil" />
+          </Key>
+          <Property Name="idEstadoCivil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Hobbys">
+          <Key>
+            <PropertyRef Name="idHobby" />
+          </Key>
+          <Property Name="idHobby" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="12" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="edad" Type="int" />
+          <Property Name="telefono" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="foto" Type="varchar(max)" />
+          <Property Name="fk_estadoCivil" Type="int" />
+        </EntityType>
+        <EntityType Name="PersonaHobbys">
+          <Key>
+            <PropertyRef Name="fk_persona" />
+            <PropertyRef Name="fk_hobby" />
+          </Key>
+          <Property Name="fk_persona" Type="int" Nullable="false" />
+          <Property Name="fk_hobby" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Persona__fk_esta__4E88ABD4">
+          <End Role="EstadoCivil" Type="Self.EstadoCivil" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoCivil">
+              <PropertyRef Name="idEstadoCivil" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="fk_estadoCivil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonaHo__fk_ho__534D60F1">
+          <End Role="Hobbys" Type="Self.Hobbys" Multiplicity="1" />
+          <End Role="PersonaHobbys" Type="Self.PersonaHobbys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hobbys">
+              <PropertyRef Name="idHobby" />
+            </Principal>
+            <Dependent Role="PersonaHobbys">
+              <PropertyRef Name="fk_hobby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonaHo__fk_pe__52593CB8">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="PersonaHobbys" Type="Self.PersonaHobbys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="PersonaHobbys">
+              <PropertyRef Name="fk_persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FORMULARIOModelStoreContainer">
+          <EntitySet Name="EstadoCivil" EntityType="Self.EstadoCivil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hobbys" EntityType="Self.Hobbys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonaHobbys" EntityType="Self.PersonaHobbys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Persona__fk_esta__4E88ABD4" Association="Self.FK__Persona__fk_esta__4E88ABD4">
+            <End Role="EstadoCivil" EntitySet="EstadoCivil" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonaHo__fk_ho__534D60F1" Association="Self.FK__PersonaHo__fk_ho__534D60F1">
+            <End Role="Hobbys" EntitySet="Hobbys" />
+            <End Role="PersonaHobbys" EntitySet="PersonaHobbys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonaHo__fk_pe__52593CB8" Association="Self.FK__PersonaHo__fk_pe__52593CB8">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="PersonaHobbys" EntitySet="PersonaHobbys" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FORMULARIOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EstadoCivil">
+          <Key>
+            <PropertyRef Name="idEstadoCivil" />
+          </Key>
+          <Property Name="idEstadoCivil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK__Persona__fk_esta__4E88ABD4" FromRole="EstadoCivil" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Hobby">
+          <Key>
+            <PropertyRef Name="idHobby" />
+          </Key>
+          <Property Name="idHobby" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="Self.PersonaHobbys" FromRole="Hobbys" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad" Type="Int32" />
+          <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fk_estadoCivil" Type="Int32" />
+          <NavigationProperty Name="EstadoCivil" Relationship="Self.FK__Persona__fk_esta__4E88ABD4" FromRole="Persona" ToRole="EstadoCivil" />
+          <NavigationProperty Name="Hobbys" Relationship="Self.PersonaHobbys" FromRole="Persona" ToRole="Hobbys" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Persona__fk_esta__4E88ABD4">
+          <End Role="EstadoCivil" Type="Self.EstadoCivil" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoCivil">
+              <PropertyRef Name="idEstadoCivil" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="fk_estadoCivil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonaHobbys">
+          <End Role="Hobbys" Type="Self.Hobby" Multiplicity="*" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="FORMULARIOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EstadoCivils" EntityType="Self.EstadoCivil" />
+          <EntitySet Name="Hobbys" EntityType="Self.Hobby" />
+          <EntitySet Name="Personas" EntityType="Self.Persona" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK__Persona__fk_esta__4E88ABD4" Association="Self.FK__Persona__fk_esta__4E88ABD4">
+            <End Role="EstadoCivil" EntitySet="EstadoCivils" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="PersonaHobbys" Association="Self.PersonaHobbys">
+            <End Role="Hobbys" EntitySet="Hobbys" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FORMULARIOModelStoreContainer" CdmEntityContainer="FORMULARIOEntities">
+          <EntitySetMapping Name="EstadoCivils">
+            <EntityTypeMapping TypeName="FORMULARIOModel.EstadoCivil">
+              <MappingFragment StoreEntitySet="EstadoCivil">
+                <ScalarProperty Name="idEstadoCivil" ColumnName="idEstadoCivil" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hobbys">
+            <EntityTypeMapping TypeName="FORMULARIOModel.Hobby">
+              <MappingFragment StoreEntitySet="Hobbys">
+                <ScalarProperty Name="idHobby" ColumnName="idHobby" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="FORMULARIOModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="fk_estadoCivil" ColumnName="fk_estadoCivil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FORMULARIOModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PersonaHobbys" TypeName="FORMULARIOModel.PersonaHobbys" StoreEntitySet="PersonaHobbys">
+            <EndProperty Name="Hobbys">
+              <ScalarProperty Name="idHobby" ColumnName="fk_hobby" />
+            </EndProperty>
+            <EndProperty Name="Persona">
+              <ScalarProperty Name="idPersona" ColumnName="fk_persona" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

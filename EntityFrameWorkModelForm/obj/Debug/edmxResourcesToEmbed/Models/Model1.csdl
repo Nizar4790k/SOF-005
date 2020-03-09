@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Personas" EntityType="Model1.Persona" />
+    <EntitySet Name="EstadoCivils" EntityType="Model1.EstadoCivil" />
+    <EntitySet Name="Hobbies" EntityType="Model1.Hobby" />
+    <AssociationSet Name="EstadoCivilPersona" Association="Model1.EstadoCivilPersona">
+      <End Role="EstadoCivil" EntitySet="EstadoCivils" />
+      <End Role="Persona" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="PersonaHobby" Association="Model1.PersonaHobby">
+      <End Role="Persona" EntitySet="Personas" />
+      <End Role="Hobby" EntitySet="Hobbies" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" />
+    <Property Name="Cedula" Type="String" Nullable="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <NavigationProperty Name="EstadoCivil" Relationship="Model1.EstadoCivilPersona" FromRole="Persona" ToRole="EstadoCivil" />
+    <NavigationProperty Name="Hobbies" Relationship="Model1.PersonaHobby" FromRole="Persona" ToRole="Hobby" />
+  </EntityType>
+  <EntityType Name="EstadoCivil">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <NavigationProperty Name="Personas" Relationship="Model1.EstadoCivilPersona" FromRole="EstadoCivil" ToRole="Persona" />
+  </EntityType>
+  <EntityType Name="Hobby">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <NavigationProperty Name="Personas" Relationship="Model1.PersonaHobby" FromRole="Hobby" ToRole="Persona" />
+  </EntityType>
+  <Association Name="EstadoCivilPersona">
+    <End Type="Model1.EstadoCivil" Role="EstadoCivil" Multiplicity="1" />
+    <End Type="Model1.Persona" Role="Persona" Multiplicity="*" />
+  </Association>
+  <Association Name="PersonaHobby">
+    <End Type="Model1.Persona" Role="Persona" Multiplicity="*" />
+    <End Type="Model1.Hobby" Role="Hobby" Multiplicity="*" />
+  </Association>
+</Schema>
