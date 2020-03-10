@@ -1,6 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-  <Alias Key="Model" Value="Model1" />
-  <Alias Key="Target" Value="Model1.Store" />
-  <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1StoreContainer" />
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Persona)">
+        <MappingFragment StoreEntitySet="Personas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoCivils">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.EstadoCivil)">
+        <MappingFragment StoreEntitySet="EstadoCivils">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hobbies">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Hobby)">
+        <MappingFragment StoreEntitySet="Hobbies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EstadoCivilPersona" TypeName="Model1.EstadoCivilPersona" StoreEntitySet="Personas">
+      <EndProperty Name="EstadoCivil">
+        <ScalarProperty Name="Id" ColumnName="EstadoCivil_Id" />
+      </EndProperty>
+      <EndProperty Name="Persona">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonaHobby" TypeName="Model1.PersonaHobby" StoreEntitySet="PersonaHobby">
+      <EndProperty Name="Persona">
+        <ScalarProperty Name="Id" ColumnName="Personas_Id" />
+      </EndProperty>
+      <EndProperty Name="Hobby">
+        <ScalarProperty Name="Id" ColumnName="Hobbies_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
 </Mapping>

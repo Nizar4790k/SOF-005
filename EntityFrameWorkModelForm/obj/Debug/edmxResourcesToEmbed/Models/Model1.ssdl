@@ -1,4 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="Model1StoreContainer" />
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Personas" EntityType="Model1.Store.Personas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EstadoCivils" EntityType="Model1.Store.EstadoCivils" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Hobbies" EntityType="Model1.Store.Hobbies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonaHobby" EntityType="Model1.Store.PersonaHobby" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EstadoCivilPersona" Association="Model1.Store.EstadoCivilPersona">
+      <End Role="EstadoCivil" EntitySet="EstadoCivils" />
+      <End Role="Persona" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonaHobby_Persona" Association="Model1.Store.FK_PersonaHobby_Persona">
+      <End Role="Persona" EntitySet="Personas" />
+      <End Role="PersonaHobby" EntitySet="PersonaHobby" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonaHobby_Hobby" Association="Model1.Store.FK_PersonaHobby_Hobby">
+      <End Role="Hobby" EntitySet="Hobbies" />
+      <End Role="PersonaHobby" EntitySet="PersonaHobby" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EstadoCivil_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EstadoCivils">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hobbies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonaHobby">
+    <Key>
+      <PropertyRef Name="Personas_Id" />
+      <PropertyRef Name="Hobbies_Id" />
+    </Key>
+    <Property Name="Personas_Id" Type="int" Nullable="false" />
+    <Property Name="Hobbies_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="EstadoCivilPersona">
+    <End Role="EstadoCivil" Type="Model1.Store.EstadoCivils" Multiplicity="1" />
+    <End Role="Persona" Type="Model1.Store.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoCivil">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Persona">
+        <PropertyRef Name="EstadoCivil_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonaHobby_Persona">
+    <End Role="Persona" Type="Model1.Store.Personas" Multiplicity="1" />
+    <End Role="PersonaHobby" Type="Model1.Store.PersonaHobby" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonaHobby">
+        <PropertyRef Name="Personas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonaHobby_Hobby">
+    <End Role="PersonaHobby" Type="Model1.Store.PersonaHobby" Multiplicity="*" />
+    <End Role="Hobby" Type="Model1.Store.Hobbies" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Hobby">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonaHobby">
+        <PropertyRef Name="Hobbies_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
